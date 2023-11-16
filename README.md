@@ -1,4 +1,2 @@
 # cmpt201_project
-#first commit -dk
-#first commit elr 
-
+Nov 16 - first milestone submitted
