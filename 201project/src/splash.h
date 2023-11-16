@@ -5,7 +5,7 @@
 
 // purpose: display splash screen
 // paramaters: none
-// return: void
+// return: void (splash screen displayed)
 void splash();
 
 

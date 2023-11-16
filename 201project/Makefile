@@ -2,4 +2,13 @@
 # lab: AS04
 # purpose: Makefile that moves .o and executable files
 
-# not sure how to move files out of src file and sort them into bin and obj folders.
+.PHONY: recursive clean
+
+recursive:
+	cd src && make 
+	cd src && mv *.o ../obj
+	cd src && mv orun ../bin
+
+clean:
+	cd bin && rm orun
+	cd obj && rm *.o

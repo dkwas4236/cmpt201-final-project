@@ -20,11 +20,7 @@ splash.o: splash.c splash.h
 game_obj.o: game_obj.c game_obj.h 
 	$(CC) $(CFLAGS) -c -ltinfo -lncurses $<
 
-.PHONY: clean move
+.PHONY: clean
 
 clean: 
 	rm -f *.o orun
-
-move:
-	mv orun ../bin/ 
-	mv *.o ../obj/
