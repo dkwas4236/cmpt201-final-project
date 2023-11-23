@@ -7,6 +7,26 @@
 #include<unistd.h>
 #include"game_obj.h"
 
+struct Block* setter1(int x, int y, int color, struct Block* b){
+	rect(x,y,2,color);
+	b[0].top=y;
+	b[0].bottom = y-2;
+	b[0].left = x;
+	b[0].right = x+2;     
+  //external loop passing the index for setter2
+	b[0].color = color;
+	return(b);
+}
+	
+void setter2(int x, int y, int color, struct Block* b,int idx){
+	rect(x,y,2,color);// visual block display 
+	b[idx].top=y;// storing position
+	b[idx].bottom = y-2;
+	b[idx].left = x;
+	b[idx].right = x+2;     
+	b[idx].color = color;
+	
+}
 void createWindow(){
   // create window
   WINDOW *w;

@@ -6,6 +6,8 @@
 #include<curses.h>
 #include<unistd.h>
 #include"splash.h"
+#include"levels.h"
+#include"game_obj.h"
 
 void splash(){
   initscr();
