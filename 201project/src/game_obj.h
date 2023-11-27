@@ -3,12 +3,10 @@
 // purpose: header file for game objects
 
 
-struct Block{
-	int top;
-	int bottom;
-	int left;
-	int right;
-	int color;
+struct Char{
+	int x;
+	int y;
+	char symbol;
   int active;
 };
 
@@ -21,10 +19,8 @@ void createWindow();
 // purpose: create an obj based on size and color
 // parameters: int, int, int, int (x coord,y coord, size, colour)
 // return: void
-void rect(int, int, int, int);
+void rect(int, int, char);
 
-struct Block* setter1(int , int , int, struct Block* );
+void setter2(int, int, char, struct Char* c,int);
 
-void setter2(int x, int y, int color, struct Block* b,int idx);
-
-void pre_setter(int level, struct Block*);
+void pre_setter(int, struct Char*);

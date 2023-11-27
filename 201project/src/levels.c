@@ -15,24 +15,11 @@ void display_level(int i) {
     keystroke(1);
   }
   if (i == 2) {
-    level2();
+    createWindow();
+    keystroke(2);
   }
   if (i == 3) {
-    level3();
+    createWindow();
+    keystroke(3);
   }
-}
-
-void level1() {
-  createWindow();
-  keystroke(1);
-}
-
-void level2() {
-  createWindow();
-  keystroke(2);
-}
-
-void level3() {
-  createWindow();
-  keystroke(3);
 }

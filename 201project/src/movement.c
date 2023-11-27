@@ -17,38 +17,35 @@ Player addPlayer(int x, int y){
 
 Player movePlayer(Player p, int inc_x, int inc_y,void* b,int memb, int *blocks_h) {
   //int next_char = mvinch((p.y + inc_y), (p.x + inc_x));
-  struct Block* block;
-  block =(struct Block*)b;
+  struct Char* c;
+  c =(struct Char*)b;
   if (bordercheck(p,inc_x,inc_y)==1){ 
-	  block_checker(p,block,inc_x,inc_y,memb, blocks_h);//this is the block checker 
+	  block_checker(p,c,inc_x,inc_y,memb, blocks_h);//this is the block checker 
     mvaddch(p.y, p.x, ' ');  // erase char 
     p.x += inc_x;
     p.y += inc_y;
-    move(1,0);
-    printw("block x: %i, block y: %i", block[0].left, block[0].top);
-
+    //move(1,0);
+    //printw("block x: %i, block y: %i", block[0].left, block[0].top);
     mvaddch(p.y, p.x, 'o');  // draw char  
   }
   return p;
 }
 
-void block_checker(Player p, void*c, int inc_x,int inc_y,int memb, int *blocks_h){
-	struct Block* b;
-	b = (struct Block *)c;
+void block_checker(Player p, void*b, int inc_x,int inc_y,int memb, int *blocks_h){
+	struct Char* c;
+	c = (struct Char *)b;
 	for(int i=0;i<memb;i++){
-    move(0,0);
-    printw("player x: %i, y: %i", p.x, p.y); //working
-    printw("i = %d, inc_x = %d, inc_y =%d memb = %d, block x: %i, y: %i ]",i, inc_x, inc_y, memb, b[0].left, b[0].top); //working
-    refresh();
-
-		if(b[i].active==1){
-      move(2,0);
-      printw("inside 1st if.");
-      if((((p.y+inc_y) <= b[i].bottom) && ((p.y+inc_y) >= b[i].top)) && (((p.x+inc_x)>=b[i].left) && ((p.x+inc_x) <= b[i].right))){
-        move(3,0);
-        printw("x: %i, y: %i block x: %i, block y: %i block x2: %i, by2: %i", p.x, p.y,b[i].left, b[i].top, b[i].right, b[i].bottom);
-			  rect(b[i].left,b[i].top,2,4);
-        b[i].active = 0;
+    //move(0,0);
+    //printw("player x: %i, y: %i", p.x, p.y); //working
+    //printw("i = %d, inc_x = %d, inc_y =%d memb = %d, block x: %i, y: %i ]",i, inc_x, inc_y, memb, b[0].left, b[0].top); //working
+		if(c[i].active==1){
+      //move(2,0);
+      //printw("inside 1st if.");
+      if(((p.y+inc_y) == c[i].y)&&((p.x+inc_x) == c[i].x)){
+        //move(3,0);
+        //printw("x: %i, y: %i block x: %i, block y: %i block x2: %i, by2: %i", p.x, p.y,b[i].left, b[i].top, b[i].right, b[i].bottom);
+			  rect(c[i].x, c[i].y, ' ');
+        c[i].active = 0;
         (*blocks_h)++;
         //mvaddch(p.y, p.x, ' ');
         //mvaddch(p.y, p.x-2, 'o');
@@ -86,8 +83,8 @@ void keystroke(int level){
 		memb = 17;
 	}
 
-	struct Block b[memb];
-	pre_setter(level,b);
+	struct Char c[memb];
+	pre_setter(level,c);
 
   Player p = addPlayer(20, 10);
 
@@ -95,16 +92,16 @@ void keystroke(int level){
     ch = getch();
     refresh(); 
     if (ch == KEY_UP) {
-      p = movePlayer(p, 0, -1, b, memb,&blocks_h);
+      p = movePlayer(p, 0, -1, c, memb,&blocks_h);
     }
     else if (ch == KEY_DOWN) {
-      p = movePlayer(p, 0, 1, b, memb, &blocks_h);
+      p = movePlayer(p, 0, 1, c, memb, &blocks_h);
     }    
     else if (ch == KEY_RIGHT) {
-      p = movePlayer(p, 1, 0, b, memb, &blocks_h);
+      p = movePlayer(p, 1, 0, c, memb, &blocks_h);
     }
     else if (ch == KEY_LEFT) {
-      p = movePlayer(p, -1, 0,b, memb, &blocks_h);
+      p = movePlayer(p, -1, 0,c, memb, &blocks_h);
     }
     else if (ch == 'p') {
       pause_screen();
