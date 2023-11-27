@@ -8,4 +8,3 @@
 // return: void (splash screen displayed)
 void splash();
 
-
