@@ -9,6 +9,7 @@ struct Block{
 	int left;
 	int right;
 	int color;
+  int active;
 };
 
 
@@ -25,3 +26,5 @@ void rect(int, int, int, int);
 struct Block* setter1(int , int , int, struct Block* );
 
 void setter2(int x, int y, int color, struct Block* b,int idx);
+
+void pre_setter(int level, struct Block*);
