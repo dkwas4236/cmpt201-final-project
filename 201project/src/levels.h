@@ -7,4 +7,13 @@
 // return: void
 void display_level(int);
 
+// purpose: display win text and option
+// paramaters: none 
+// return: void
+void win();
+
+// purpose: display lose text and option
+// paramaters: int 
+// return: void
+void lose(int);
 

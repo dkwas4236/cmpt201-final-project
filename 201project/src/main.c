@@ -12,8 +12,11 @@
 
 int main(){
   noecho();
+  // splash screen with instructions and title
   splash();
+  // clear splash 
   clear();
+  // init start of game
   display_level(1); 
   endwin();
   return 0;
