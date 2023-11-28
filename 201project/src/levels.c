@@ -2,6 +2,7 @@
 // lab: AS04
 // purpose: contains code for levels
 
+#include<stdlib.h>
 #include <curses.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -10,29 +11,69 @@
 #include "movement.h"
 
 void display_level(int i) {
+  // call levels and create associated windows, start init of keystroke
+  // level 1
   if (i == 1) {
     createWindow();
     keystroke(1);
   }
+  // level 2
   if (i == 2) {
-    level2();
+    createWindow();
+    keystroke(2);
   }
+  // level 3
   if (i == 3) {
-    level3();
+    createWindow();
+    keystroke(3);
+  }
+  // if i = 4, game has been won
+  if (i == 4){
+    win();
   }
 }
 
-void level1() {
-  createWindow();
-  keystroke(1);
+void win(){
+  int ch;
+  // display win message out of bounds
+  move(21, 14);
+  printw("You WIN!");
+  move(22, 14);
+  printw("Press 'W' to exit");
+  // check for char, if W then exit
+  while(1){
+    ch= getch();
+    if(ch == 'W'){
+      endwin();
+      clear();
+      exit(1);
+    }
+  }
 }
 
-void level2() {
-  createWindow();
-  keystroke(2);
-}
-
-void level3() {
-  createWindow();
-  keystroke(3);
+void lose(int reason){
+  int ch;
+  // display lose message out of bounds
+  move(21, 14);
+  printw("You LOSE");
+  move(22, 7);
+  // check reason for loss
+  if(reason == 0){
+    printw("Failed to collect blue blocks!");
+  }
+  else{
+    printw("You hit a red block!");
+  }
+  // print message out of bounds
+  move(23, 14);
+  printw("Press 'L' to exit");
+  // loop for char, if L then exit
+  while(1){
+    ch= getch();
+    if(ch == 'L'){
+      endwin();
+      clear();
+      exit(1);
+    }
+  }
 }

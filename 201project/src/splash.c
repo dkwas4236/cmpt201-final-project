@@ -19,8 +19,8 @@ void splash(){
   // display and format instructions
   printw("\n\n\nYou are 'o'!\n\n\n");
   printw("RULES:\n");
-  printw("1. Use the arrows to move\n2. Get to the green square before the time runs out\n");
-  printw("3. Collect the blue squares\n4. Avoid the red squares\n");
+  printw("1. Use the arrows to move\n2. Get to the green 'G\n");
+  printw("3. Collect the blue B's\n4. Avoid the red R's\n");
   printw("\n\nPress any character to continue\n");
   //get character to continue
   getch();
