@@ -45,4 +45,5 @@ void pause_screen();
 // return: void
 void block_checker(Player p, void*, int, int, int, int*);
 
+int block_hit(int, int, char);
 

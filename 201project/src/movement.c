@@ -11,6 +11,7 @@
 #include"splash.h"
 #include"game_obj.h"
 #include"levels.h"
+#include"npc.h"
 
 Player addPlayer(int x, int y){
   // use Player struct to init player
@@ -30,6 +31,13 @@ Player movePlayer(Player p, int inc_x, int inc_y,void* b,int memb, int *blocks_h
   if (bordercheck(p,inc_x,inc_y)==1){ 
     // check if o is interacting with game_obj
 	  block_checker(p,c,inc_x,inc_y,memb, blocks_h);
+	
+	for(int i=0;i<memb;i++){
+		if((c[i].flag ==1)&&(c[i].active ==1)){// checks for removed blocks that are still active
+			rect(c[i].x,c[i].y,c[i].symbol,c[i].color);// re-draws erased active blocks
+			refresh();
+		}
+	}
     // clear old position with space
     mvaddch(p.y, p.x, ' ');  
     p.x += inc_x;
@@ -38,6 +46,50 @@ Player movePlayer(Player p, int inc_x, int inc_y,void* b,int memb, int *blocks_h
     mvaddch(p.y, p.x, 'o');   
   }
   return p;
+}
+int block_hit(int nowx ,int nowy,char symbol){
+	char ch;
+	while(1){
+		if(symbol=='B'){
+			move(25,20);
+			printw("double click 'u' to pick up");//instruction message displayed to the screen 
+			ch = getch();
+			move(25,20);
+			printw("                             ");
+		  if(ch == 'u'){
+			  return(1);// blue block is picked up
+		  }
+		  else if (ch != 'u'){
+			  return(0);
+		  }
+	  }
+		else if(symbol =='G'){// advancing to the next level
+			move(25,20);
+			printw("double click 'n' to move to next level");
+			ch = getch();
+			move(25,20);
+			printw("                                        ");
+			if(ch == 'n'){
+				return(1);//next level
+			}
+			else if (ch != 'n'){
+				return(0);//block ignored 
+			}
+		}
+		else if(symbol =='R'){//avoiding red block if hit
+			move(25,20);
+			printw("single click 'j' to skip over block");
+			ch = getch();
+			move(25,20);
+			printw("                                        ");
+			if(ch == 'j'){
+				return(0);// skips red block
+			}
+			else if (ch != 'j'){
+				return(1); //red block is hit and game ends
+			}
+		}
+	}	
 }
 
 void block_checker(Player p, void*b, int inc_x,int inc_y,int memb, int *blocks_h){
@@ -55,19 +107,26 @@ void block_checker(Player p, void*b, int inc_x,int inc_y,int memb, int *blocks_h
     // check to see if block is active
 		if(c[i].active==1){
       // if interaction of any kind occurs, increment hit block value
-      if(((p.y+inc_y) == c[i].y)&&((p.x+inc_x) == c[i].x)){
-        (*blocks_h)++;
+			if(((p.y+inc_y) == c[i].y)&&((p.x+inc_x) == c[i].x)){
+				if(block_hit((p.x+inc_x),(p.y+inc_y),c[i].symbol)==0){// checks for collision and no keyboard action
+					c[i].flag = 1; // char flaged to be re-displayed to screen 
+					move(30,30);
+				}
+				else if(block_hit((p.x+inc_x),(p.y+inc_y),c[i].symbol)==1){
+					move(30,30);
+					(*blocks_h)++;
         // if R is hit, lose game
-        if(c[i].symbol == 'R'){
-          lose(1);
-        }
+        	if(c[i].symbol == 'R'){
+            lose(1);
+        	}
         // if G is hit premature to collecting all blue, lose game
-        else if((c[i].symbol == 'G') && (*blocks_h != (memb-red_count))){
-          lose(0);
-        }
+        	else if((c[i].symbol == 'G') && (*blocks_h != (memb-red_count))){
+          	lose(0);
+        	}
         // else, set interacted block to space and active status to 0
-			  rect(c[i].x, c[i].y, ' ', 4);
-        c[i].active = 0;
+			  		//rect(c[i].x, c[i].y, ' ', 4);
+        	c[i].active = 0;
+				}
       }
 	  }
   }
@@ -110,6 +169,8 @@ void keystroke(int level){
 	pre_setter(level,c);
   // init player
   Player p = addPlayer(20, 10);
+  // init NPC 
+  NPC n = addNpc(31, 3);
   // loop for keystrokes and input
   while (1) {
     ch = getch();
@@ -117,18 +178,22 @@ void keystroke(int level){
     // move up
     if (ch == KEY_UP) {
       p = movePlayer(p, 0, -1, c, memb,&blocks_h);
+      moveNpc(&n);
     }
     // move down
     else if (ch == KEY_DOWN) {
       p = movePlayer(p, 0, 1, c, memb, &blocks_h);
+      moveNpc(&n);
     }    
     // move right
     else if (ch == KEY_RIGHT) {
       p = movePlayer(p, 1, 0, c, memb, &blocks_h);
+      moveNpc(&n);
     }
     // move left
     else if (ch == KEY_LEFT) {
       p = movePlayer(p, -1, 0,c, memb, &blocks_h);
+      moveNpc(&n);
     }
     // call pause screen
     else if (ch == 'p') {
@@ -162,10 +227,10 @@ void pause_screen(){
       move(22, 11);
       printw("                   ");
       break;
-     }
-     else{
-       continue;
-     }
+    }
+    else{
+      continue;
+    }
   }
 }
 

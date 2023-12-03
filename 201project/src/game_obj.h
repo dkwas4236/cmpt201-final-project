@@ -11,6 +11,7 @@ struct Char{
 	char symbol;
   int color;
   int active;
+  int flag;
 };
 
 // purpose: create a window
