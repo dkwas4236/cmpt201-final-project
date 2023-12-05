@@ -2,6 +2,12 @@
 // lab: AS04
 // purpose: code for game objects
 
+/**
+ * @file game_obj.c 
+ * @brief def on functions in '.h' file 
+ * @author Ethan, Darion
+ * @date December 4th 2023
+ */
 #include<stdio.h>
 #include<curses.h>
 #include<unistd.h>

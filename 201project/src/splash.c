@@ -2,6 +2,13 @@
 //lab: AS04
 //purpose: splash screen code
 
+/**
+* @file splash.c                                      *
+* @brief def on functions in '.h' file                *
+* @author Ethan, Darion                               *
+* @date December 4th, 2023                            *
+*/
+
 #include<stdio.h>
 #include<curses.h>
 #include<unistd.h>

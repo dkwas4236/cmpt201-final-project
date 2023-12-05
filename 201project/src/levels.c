@@ -2,6 +2,13 @@
 // lab: AS04
 // purpose: contains code for levels
 
+/**
+* @file levels.c                                      *
+* @brief def on functions in '.h' file                *
+* @author Ethan, Darion                               *
+* @date December 4th, 2023                                *
+*/
+
 #include<stdlib.h>
 #include <curses.h>
 #include <stdio.h>

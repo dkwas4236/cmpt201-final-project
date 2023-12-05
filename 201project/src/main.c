@@ -2,6 +2,13 @@
 // lab: AS04
 // purpose: main code to run game
 
+/**
+* @file main.c                                        *
+* @brief def on functions in '.h' file                *
+* @author Ethan, Darion                               *
+* @date December 4th, 2023                            *
+*/
+
 #include<curses.h>
 #include<stdio.h>
 #include<unistd.h>

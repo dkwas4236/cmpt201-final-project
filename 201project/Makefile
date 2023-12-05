@@ -2,7 +2,7 @@
 # lab: AS04
 # purpose: Makefile that moves .o and executable files
 
-.PHONY: recursive clean
+.PHONY: recursive clean install 
 
 recursive:
 	cd src && make 
@@ -12,3 +12,6 @@ recursive:
 clean:
 	cd bin && rm orun
 	cd obj && rm *.o
+
+install:
+	cd src && doxygen dconfig
